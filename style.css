@@ -73,3 +73,9 @@ button {
     border-radius: 10px;
     margin-left: 2rem;
 }
+
+@media (max-width: 1300px) {
+    .container {
+        flex-direction: column;
+    }
+}
