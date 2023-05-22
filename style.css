@@ -1,0 +1,75 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    color: white;
+}
+
+img {
+    display: none;
+}
+
+.container {
+    display: flex;
+    background: #0c0c0c;
+    height: 100dvh;
+    align-items: center;
+    justify-content: center;
+}
+
+.instructions {
+    background: #181818;
+    width: 55%;
+    border-radius: 10px;
+    height: 95%;
+    margin-right: 3rem;
+    margin-left: 2rem;
+    padding-left: 2rem;
+}
+
+.result {
+    background: #181818;
+    width: 45%;
+    border-radius: 10px;
+    height: 95%;
+    margin-right: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    outline: 2px solid white;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-weight: 500;
+    color: gray;
+    font-size: 1rem;
+    font-style: italic;
+}
+
+input {
+    background: #242424;
+    width: 80%;
+    border: 1px solid gray;
+    font-size: 1.2rem;
+    height: 2rem;
+    text-indent: 0.5rem;
+    border-radius: 10px;
+    color: white;
+    font: inherit;
+}
+
+button {
+    border: none;
+    font-size: 1rem;
+    font: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    margin-left: 2rem;
+}

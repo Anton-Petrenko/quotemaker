@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,500&family=Teko:wght@600&display=swap" rel="stylesheet">
+    <script>
+        function drawImage (url, quote, context) {
+
+            var canvas = document.getElementById("drawing");
+            var render = canvas.getContext("2d");
+            var image = new Image();
+            image.src = url;
+
+            render.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dealing with the position and centering of the chosen image.
+            var aspectRatio = image.width / image.height;
+            var heightisLess = image.width > image.height ? true : false;
+
+            var centering = new Array();
+
+            if (heightisLess) {
+                image.height = canvas.height;
+                image.width = image.height * aspectRatio;
+                centering[0] = -(image.width - canvas.width) / 2 ;
+                centering[1] = 0;
+            }
+            else {
+                image.width = canvas.width;
+                image.height = image.width / aspectRatio;
+                centering[0] = 0;
+                centering[1] = -(image.height - canvas.height) / 2;
+            }
+
+            render.drawImage(image, centering[0], centering[1], image.width, image.height);
+
+            // Putting a gradient on top of the image.
+            var gradient = render.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            gradient.addColorStop(1, '#000000');
+            render.fillStyle = gradient;
+            render.fillRect(0, 0, canvas.width,canvas.height);
+
+            // Styling with text.
+            render.fillStyle = 'white';
+            render.textAlign = 'center';
+            render.font = "60px teko";
+
+            var text = quote;
+            var textSplit = text.split(" ");
+            var lineLength = 0;
+            var textHeight = canvas.height - 150;
+            var textToPrint = "";
+            var textArray = new Array();
+            var totalLines = 0;
+            
+            for (let word of textSplit) {
+                if (lineLength + word.length > 30) {
+                    textArray.push(textToPrint);
+                    totalLines++;
+                    textToPrint = "";
+                }
+                textToPrint = textToPrint + " " + word;
+                lineLength = textToPrint.length;
+                
+            }
+            textArray.push(textToPrint);
+            var start = totalLines * 60;
+
+            for (let i = 0; i < textArray.length; i++){
+                render.fillText(textArray[i], canvas.width / 2, (textHeight - start) + (55 * i));
+            }
+            
+            // Adding quotation mark
+            var quotes = new Image();
+            quotes.src = "https://www.seekpng.com/png/full/73-739513_white-quote-marks-good-33-white-quotation-mark.png";
+            render.drawImage(quotes, 30, (textHeight - start) - 90, 40, 30);
+
+            // Adding context text
+            var contextText = context;
+            render.font = "15px Open Sans";
+            render.fillStyle = 'rgb(200, 200, 200)';
+            render.fillText(contextText, canvas.width / 2, canvas.height - 50);
+            
+            // Additional styling
+
+            // Line
+            render.fillStyle = 'white';
+            render.fillRect(85, textHeight + 50, 475, 3);
+            // Logo
+            var br = new Image();
+            br.src = "https://i.ibb.co/3BY6ybL/br-630-height.png";
+            render.drawImage(br, canvas.width - 120, 20, 106 + (2/3), 70);
+        };
+
+        function refreshImage() {
+            var url = document.getElementById('url').value;
+            var quote = document.getElementById('quote').value;
+            var context = document.getElementById('context').value;
+            
+            drawImage(url, quote, context);
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="instructions">
+            <h1>Quote Generator</h1>
+            <h2>If it does not load on the first try, please try submitting again.</h2>
+            <p>Image URL</p>
+            <div class="input">
+                <input type="text" id="url">
+                <button onclick="refreshImage()">Submit</button>
+            </div>
+            <div class="input">
+                <p>Quote</p>
+                <input type="text" id="quote">
+                <button onclick="refreshImage()">Submit</button>
+            </div>
+            <div class="input">
+                <p>Context</p>
+                <input type="text" id="context">
+                <button onclick="refreshImage()">Submit</button>
+            </div>
+        </div> 
+        <div class="result">
+            <canvas id="drawing" width="650" height="860"></canvas>
+            <img src="https://media.discordapp.net/attachments/849117183367315489/1107848855942348840/broseph.png" alt="" id="background">
+        </div>
+    </div>
+</body>
+</html>
