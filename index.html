@@ -22,6 +22,7 @@
             // Dealing with the position and centering of the chosen image.
             var aspectRatio = image.width / image.height;
             var heightisLess = image.width > image.height ? true : false;
+            var heightisEqual = image.width == image.height;
 
             var centering = new Array();
 
@@ -79,7 +80,7 @@
             
             // Adding quotation mark
             var quotes = new Image();
-            quotes.src = "https://www.seekpng.com/png/full/73-739513_white-quote-marks-good-33-white-quotation-mark.png";
+            quotes.src = "https://clubrespect.org.au/wp-content/uploads/2018/10/quotation-marks-white.png";
             render.drawImage(quotes, 30, (textHeight - start) - 90, 40, 30);
 
             // Adding context text
